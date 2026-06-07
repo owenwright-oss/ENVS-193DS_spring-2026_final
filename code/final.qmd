@@ -1,0 +1,35 @@
+---
+title: "ENVS 193DS Final"
+author: Owen Wright
+date: "June 9, 2026"
+format:
+  pdf:
+    toc: true
+editor: visual
+---
+
+GitHub repository: <https://github.com/owenwright-oss/ENVS-193DS_spring-2026_final>
+
+# Set up
+
+```{r}
+#| message: false
+#| warning: false
+
+#Load packages
+library(tidyverse)
+library(here)
+library(janitor)
+library(ggeffects)
+library(DHARMa)
+library(MuMIn)
+library(gt)
+
+#Read in data 
+nests <- read_csv(here("data", "nest_data_final.csv"),
+                        show_col_types = FALSE)
+
+#Clean name 
+nests <- clean_names(nests)
+
+```
