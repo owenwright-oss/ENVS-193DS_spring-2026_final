@@ -28,7 +28,7 @@ library(gt)
 nests <- read_csv(here("data", "nest_data_final.csv"),
                         show_col_types = FALSE)
 
-#Clean name 
+#Clean names 
 nests <- clean_names(nests)
 
 ```
@@ -47,4 +47,49 @@ American Avocet microhabitat use was found to be associated with distance to the
 
 One additional variable that may influence the probability of American Avocet microhabitat use is total vegetation cover, measured as a percent of the ground covered by vegetation within a fixed radius. The data may be collected via aerial imagery around each bird observation point. Percent vegetation cover is a continuous variable, and may influence American Avocet habitat use as variation in vegetation density may affect predator and feeding behaviors by altering visibility or access to part of the habitat.
 
-> 
+# **Problem 2. Data analysis**
+
+## **a. Clean and wrangle**
+
+```{r}
+#Create clean nest data
+nests_clean <- nests |>
+  
+  #Select columns of interest
+  select(case_control,
+         height_cm,
+         ant_species) |>
+  
+  #Filter to the three ant species
+  filter(ant_species %in% c("AB", 
+                            "RRB", 
+                            "BBR")) |>
+  #Reorder levels of ant species
+  mutate(ant_species = factor(ant_species,
+                              levels = c("AB", 
+                                         "RRB", 
+                                         "BBR")),
+         #Create column for full scientific names
+         ant_species_full = case_when(ant_species == "AB" ~ "Crematogaster sjostedti",
+                                      ant_species == "RRB" ~ "Crematogaster mimosae",
+                                      ant_species == "BBR" ~ "Crematogaster nigriceps"),
+         
+         #Reorder full scientific name levels
+         ant_species_full = factor(ant_species_full,
+                                   levels = c("Crematogaster sjostedti",
+                                              "Crematogaster mimosae",
+                                              "Crematogaster nigriceps")))
+
+#Show structure of cleaned data
+str(nests_clean)
+
+#Show 10 random rows from data frame
+slice_sample(nests_clean, n = 10)
+
+```
+
+## **b. Response variable**
+
+In this data set, biologically, a value of 1 means that a tree contained a bird nest and was therefore selected by a bird as a suitable nest habitat. A value of 0 means that the tree was classified as an available nesting tree but did not contain a bird nest, and was therefore not selected by a bird to serve as a nest site despite this.
+
+## **c. Purpose of study**
