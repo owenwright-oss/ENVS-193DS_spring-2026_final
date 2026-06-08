@@ -93,3 +93,9 @@ slice_sample(nests_clean, n = 10)
 In this data set, biologically, a value of 1 means that a tree contained a bird nest and was therefore selected by a bird as a suitable nest habitat. A value of 0 means that the tree was classified as an available nesting tree but did not contain a bird nest, and was therefore not selected by a bird to serve as a nest site despite this.
 
 ## **c. Purpose of study**
+
+The first predictor variable, tree height, is a continuous variable measured in centimeters. As tree height increases, the probability of nest occurrence may increase as taller trees may provide more suitable nesting structure and protection from predators. This information was found in the first paragraph of the "Methods" section, and further articulated in the first paragraph of the "Results" section, where it is reported that all nests were in trees more than 1.5 meters tall.
+
+The second predictor variable, acacia ant species, is a categorical variable, represented by three main species: *Crematogaster sjostedti*, *Crematogaster mimosae*, and *Crematogaster nigriceps*. Ant species may influence the probability of nest occurrence as some species, such as *C. mimosae* and *C. nigriceps*, aggressively defend their host trees, which may make those trees a more secure nesting site. This information was found in the second paragraph of the "Introduction" section, and further articulated in the first paragraph of the "Discussion" section, where is it explained that birds almost always nested in trees inhabited by aggressive ant defenders.
+
+\
