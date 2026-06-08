@@ -55,7 +55,7 @@ One additional variable that may influence the probability of American Avocet mi
 #Create clean nest data
 nests_clean <- nests |>
   
-  #Select columns of interest
+  #Select columns
   select(case_control,
          height_cm,
          ant_species) |>
@@ -64,11 +64,13 @@ nests_clean <- nests |>
   filter(ant_species %in% c("AB", 
                             "RRB", 
                             "BBR")) |>
+  
   #Reorder levels of ant species
   mutate(ant_species = factor(ant_species,
                               levels = c("AB", 
                                          "RRB", 
                                          "BBR")),
+         
          #Create column for full scientific names
          ant_species_full = case_when(ant_species == "AB" ~ "Crematogaster sjostedti",
                                       ant_species == "RRB" ~ "Crematogaster mimosae",
@@ -98,4 +100,59 @@ The first predictor variable, tree height, is a continuous variable measured in 
 
 The second predictor variable, acacia ant species, is a categorical variable, represented by three main species: *Crematogaster sjostedti*, *Crematogaster mimosae*, and *Crematogaster nigriceps*. Ant species may influence the probability of nest occurrence as some species, such as *C. mimosae* and *C. nigriceps*, aggressively defend their host trees, which may make those trees a more secure nesting site. This information was found in the second paragraph of the "Introduction" section, and further articulated in the first paragraph of the "Discussion" section, where is it explained that birds almost always nested in trees inhabited by aggressive ant defenders.
 
-\
+## **d. Table of models**
+
+```{r}
+#Create table of models
+model_table <- tibble(model_number = c("Model 1",
+                                       "Model 2"),
+                      response_variable = c("Nest occurrence",
+                                            "Nest occurrence"),
+                      predictor_variables = c("Tree height + acacia ant species",
+                                              "Tree height + acacia ant species"),
+                      interaction_term = c("No interaction",
+                                           "Tree height × acacia ant species"))
+
+#Display table of models
+model_table |>
+  gt() |>
+  cols_label(model_number = "Model number",
+             response_variable = "Response variable",
+             predictor_variables = "Predictor variables",
+             interaction_term = "Interaction term")
+
+```
+
+## **e. Run the models**
+
+```{r}
+#Do not display any output
+#| output: false
+
+#Run model without interaction
+mod_no_int <- glm(case_control ~ height_cm + ant_species_full,
+                  data = nests_clean,
+                  family = "binomial")
+
+#Run model with interaction
+mod_int <- glm(case_control ~ height_cm * ant_species_full,
+               data = nests_clean,
+               family = "binomial")
+
+```
+
+## **f. Select the best model**
+
+```{r}
+#Compare models using Akaike’s Information Criterion
+aic_table <- AIC(mod_no_int,
+                 mod_int)
+
+#Display AIC table
+aic_table
+
+```
+
+The best model, as determined by Akaike’s Information Criterion (AIC), was found to be the logistic regression model predicting nest occurrence based on tree height and acacia ant species, as well as the interaction between tree height and acacia ant species. This model had the lower AIC value, suggesting that the effect of tree height on probability of nest occurrence differs depending on which acacia ant species is present.
+
+## 
