@@ -22,7 +22,6 @@ library(here)
 library(janitor)
 library(ggeffects)
 library(DHARMa)
-library(MuMIn)
 library(gt)
 
 #Read in data 
@@ -33,3 +32,19 @@ nests <- read_csv(here("data", "nest_data_final.csv"),
 nests <- clean_names(nests)
 
 ```
+
+# Problem 1. Research writing
+
+## a. Transparent statistical methods
+
+In part 1, they used a binomial generalized linear model, or a logistic regression, to test whether distance to water edge predicts the probability of American Avocet microhabitat use. In part 2, they used a chi-square test of independence in order to test if the two categorical variables, bird species and habitat type, were related.
+
+## b. Suggestions for rewriting
+
+American Avocet microhabitat use was found to be associated with distance to the water edge, meaning that American Avocets were more likely to use certain areas depending on how close those areas were to the waters edge in the San Francisco Bay. Bird species and habitat type was also found to be associated, suggesting that American Avocets, Forster’s Terns, and Black-necked Stilts were not evenly distributed across managed ponds, non-tidal marshes, salt ponds, tidal marshes, and tidal mudflats habitats.
+
+## c. Further analysis
+
+One additional variable that may influence the probability of American Avocet microhabitat use is total vegetation cover, measured as a percent of the ground covered by vegetation within a fixed radius. The data may be collected via aerial imagery around each bird observation point. Percent vegetation cover is a continuous variable, and may influence American Avocet habitat use as variation in vegetation density may affect predator and feeding behaviors by altering visibility or access to part of the habitat.
+
+> 
