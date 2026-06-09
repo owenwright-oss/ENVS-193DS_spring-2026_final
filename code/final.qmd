@@ -155,4 +155,92 @@ aic_table
 
 The best model, as determined by Akaike’s Information Criterion (AIC), was found to be the logistic regression model predicting nest occurrence based on tree height and acacia ant species, as well as the interaction between tree height and acacia ant species. This model had the lower AIC value, suggesting that the effect of tree height on probability of nest occurrence differs depending on which acacia ant species is present.
 
+## **g. Check the diagnostics**
+
+```{r}
+#Set seed to keep same diagnostic plot
+set.seed(123)
+
+#Create simulated residuals for model 2
+mod_int_res <- simulateResiduals(fittedModel = mod_int)
+
+#Display DHARMa diagnostic plots
+plot(mod_int_res)
+
+```
+
+## **h. Visualize the model predictions**
+
+```{r}
+#Create plot showing model predictions
+mod_int_preds <- ggpredict(mod_int,
+                           terms = c("height_cm",
+                                     "ant_species_full"))
+#Convert predictions to data frame
+mod_int_preds <- as.data.frame(mod_int_preds)
+
+#Rename group column to match raw data
+mod_int_preds <- mod_int_preds |>
+  rename(ant_species_full = group)
+
+#Plot model predictions and raw data
+ggplot() +
+  
+  #Add underlying data
+  geom_jitter(data = nests_clean,
+              aes(x = height_cm,
+                  y = case_control,
+                  color = ant_species_full),
+              width = 0,
+              height = 0.05,
+              alpha = 0.5) +
+  
+  #Add confidence intervals around predictions and underlying data
+  geom_ribbon(data = mod_int_preds,
+              aes(x = x,
+                  ymin = conf.low,
+                  ymax = conf.high,
+                  fill = ant_species_full),
+              alpha = 0.25) +
+  
+  #Add model prediction lines
+  geom_line(data = mod_int_preds,
+            aes(x = x,
+                y = predicted,
+                color = ant_species_full),
+            linewidth = 1) +
+  
+  #Create separate panels for each ant species
+  facet_wrap(~ ant_species_full) +
+  
+  #Change colors
+  scale_color_manual(values = c("firebrick",
+                                "steelblue",
+                                "forestgreen")) +
+  scale_fill_manual(values = c("firebrick",
+                               "steelblue",
+                               "forestgreen")) +
+  
+  #Label axes in full
+  labs(x = "Tree height (cm)",
+       y = "Probability of nest occurrence") +
+  
+  #Remove legend
+  theme_classic() +
+  theme(legend.position = "none")
+
+```
+
+## **i. Write a caption for your figure**
+
+**Figure 1. Predicted probability of nest occurrence by tree height and acacia ant species.** Points represent the underlying nest occurrence data, where 1 indicates a tree containing a bird nest and 0 indicates an available and suitable tree that does not contain a bird nest. The lines represent model predictions from the selected logistic regression model, and surrounding lighter coloured shaded ribbons represent the 95% confidence intervals. Separate panels show predictions for *Crematogaster sjostedti* ( displayed in red), *Crematogaster mimosae* (displayed in blue), and *Crematogaster nigriceps* (displayed in green). Data are from Lujan, E., Nielsen, R., Short, Z., Wicks, S., Nderitu Watetu, W., Malingati Khasoha, L., Palmer, T. M., Goheen, J. R., & Alston, J. M. (2023). Data, code, and metadata for: Symbiotic acacia ants drive nesting behavior by birds in an African savanna [Data set]. <https://doi.org/10.5281/zenodo.8373322>
+
+## j. Calculate model predictions
+
+```{r}
+
+
+
+```
+
 ## 
