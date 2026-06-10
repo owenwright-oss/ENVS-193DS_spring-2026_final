@@ -233,7 +233,7 @@ ggplot() +
 
 ## **i. Write a caption for your figure**
 
-**Figure 1. Predicted probability of nest occurrence by tree height and acacia ant species.** Points represent the underlying nest occurrence data, where 1 indicates a tree containing a bird nest and 0 indicates an available and suitable tree that does not contain a bird nest. The lines represent model predictions from the selected logistic regression model, and surrounding lighter coloured shaded ribbons represent the 95% confidence intervals. Separate panels show predictions for *Crematogaster sjostedti* ( displayed in red), *Crematogaster mimosae* (displayed in blue), and *Crematogaster nigriceps* (displayed in green). Data are from Lujan, E., Nielsen, R., Short, Z., Wicks, S., Nderitu Watetu, W., Malingati Khasoha, L., Palmer, T. M., Goheen, J. R., & Alston, J. M. (2023). Data, code, and metadata for: Symbiotic acacia ants drive nesting behavior by birds in an African savanna [Data set]. <https://doi.org/10.5281/zenodo.8373322>
+**Figure 1. Predicted probability of nest occurrence by tree height and acacia ant species.** Points represent the underlying nest occurrence data, where 1 indicates a tree containing a bird nest and 0 indicates an available and suitable tree that does not contain a bird nest. The lines represent model predictions from the selected logistic regression model, and surrounding lighter coloured shaded ribbons represent the 95% confidence intervals. Separate panels show predictions for *Crematogaster sjostedti* ( displayed in red), *Crematogaster mimosae* (displayed in blue), and *Crematogaster nigriceps* (displayed in green). Data are from Lujan, E., Nielsen, R., Short, Z., Wicks, S., Nderitu Watetu, W., Malingati Khasoha, L., Palmer, T. M., Goheen, J. R., & Alston, J. M. (2023). Data, code, and metadata for: Symbiotic acacia ants drive nesting behavior by birds in an African savanna \[Data set\]. <https://doi.org/10.5281/zenodo.8373322>
 
 ## j. Calculate model predictions
 
@@ -274,4 +274,6 @@ pred_600_table |>
 
 ```
 
-## 
+## k. Interpret your results
+
+When tree height is set to 600 cm, the model predicted that the probability of nest occurrence was highest for trees inhabited by the more aggressive *Crematogaster nigriceps* at 1.000 (95% CI: 1.000, 1.000), followed by the *Crematogaster mimosae* at 0.741 (95% CI: 0.481, 0.898), and was the lowest for the *Crematogaster sjostedti* at 0.205 (95% CI: 0.001, 0.986). As displayed in Figure 1, the relationship between tree height and probability of nest occurrence differed depending on the type of acacia ant species present, with nest occurrence increasing most strongly with height for trees inhabited by the *C. nigriceps* ants. Ultimately, nest occurrence was more likely in that of taller trees and in trees inhabited by the more aggressive ant defenders, such as *C. nigriceps* and *C. mimosae*. Biologically speaking, this pattern may exist as aggressive ant species better defend host trees from predators and disturbances, making these trees better suited for nest selection.
