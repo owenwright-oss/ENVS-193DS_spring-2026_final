@@ -284,5 +284,8 @@ When tree height is set to 600 cm, the model predicted that the probability of n
 
 The affective visualization was primarily inspired by the scatter plot exploratory visualization examining the relationship between sleep duration and productivity level. The heights of the buildings represented sleep duration, while exposure to sunlight represented productivity. The arrangement of the buildings follows the overall trendline displayed in the scatter plot, allowing the affective visualization to still effectively communicate the relationship between the two variables but in a more visually compelling manner.
 
+# b. Designing an analysis
 
+A simple linear regression model may be used to answer my initially proposed research question, "How does the amount of sleep I get a night affect my daily productivity?" This analysis is appropriate as the measured response variable, productivity level (measured as tasks completed over tasks initially planned and expressed as a percentage), and the predictor variable, sleep duration (measured in minutes), are both continuous variables. This analysis would ultimately allow me to determine if changes in my sleep duration are associated with changes in my overall productivity level, and further articulate the strength and direction of that relationship.
 
+## c. 
