@@ -31,6 +31,14 @@ nests <- read_csv(here("data", "nest_data_final.csv"),
 #Clean names 
 nests <- clean_names(nests)
 
+#Read in personal data
+my_data <- read_csv(here("data", 
+                         "ENVS193DS_Homework2_personal_data - Sheet1 (1).csv"),
+                    show_col_types = FALSE)
+
+#Clean names of personal data
+my_data <- clean_names(my_data)
+
 ```
 
 # Problem 1. Research writing
@@ -288,4 +296,43 @@ The affective visualization was primarily inspired by the scatter plot explorato
 
 A simple linear regression model may be used to answer my initially proposed research question, "How does the amount of sleep I get a night affect my daily productivity?" This analysis is appropriate as the measured response variable, productivity level (measured as tasks completed over tasks initially planned and expressed as a percentage), and the predictor variable, sleep duration (measured in minutes), are both continuous variables. This analysis would ultimately allow me to determine if changes in my sleep duration are associated with changes in my overall productivity level, and further articulate the strength and direction of that relationship.
 
-## c. 
+## c. Check any assumptions and run your analysis
+
+### Check any assumptions
+
+```{r}
+#Create productivity variable as percentage
+my_data_clean <- my_data |>
+  mutate(productivity_level = tasks_completed / tasks_planned * 100)
+
+#Create linear model
+sleep_productivity_mod <- lm(productivity_level ~ sleep_minutes,
+                             data = my_data_clean)
+
+#Check linearity and if variance is constant
+plot(sleep_productivity_mod, which = 1)
+
+#Check if residuals are normal
+plot(sleep_productivity_mod, which = 2)
+
+```
+
+### Run the analysis proposed in part b
+
+```{r}
+#Run simple the linear regression
+summary(sleep_productivity_mod)
+
+```
+
+### Calculate an effect size
+
+```{r}
+#Calculate effect size for linear regression
+summary(sleep_productivity_mod)$r.squared
+
+```
+
+
+
+
