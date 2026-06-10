@@ -239,7 +239,38 @@ ggplot() +
 
 ```{r}
 
+#Create new data for a tree height fixed at 600 cm
+pred_600 <- tibble(height_cm = c(600,
+                                 600,
+                                 600),
+                   ant_species_full = factor(c("Crematogaster sjostedti",
+                                               "Crematogaster mimosae",
+                                               "Crematogaster nigriceps"),
+                                             levels = c("Crematogaster sjostedti",
+                                                        "Crematogaster mimosae",
+                                                        "Crematogaster nigriceps")))
 
+#Calculate model predictions at 600 cm
+pred_600_output <- predict(mod_int,
+                           newdata = pred_600,
+                           type = "link",
+                           se.fit = TRUE)
+
+#Create table by converting predictions from log-odds into probabilities
+pred_600_table <- pred_600 |>
+  mutate(predicted_probability = plogis(pred_600_output$fit),
+         conf_low = plogis(pred_600_output$fit - 1.96 * pred_600_output$se.fit),
+         conf_high = plogis(pred_600_output$fit + 1.96 * pred_600_output$se.fit))
+
+#Display the predicted probabilities with all columns
+pred_600_table |>
+  
+  #Show columns in order 
+  select(ant_species_full,
+         height_cm,
+         predicted_probability,
+         conf_low,
+         conf_high)
 
 ```
 
