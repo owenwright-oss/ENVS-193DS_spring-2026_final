@@ -241,7 +241,7 @@ ggplot() +
 
 ## **i. Write a caption for your figure**
 
-**Figure 1. Predicted probability of nest occurrence by tree height and acacia ant species.** Points represent the underlying nest occurrence data, where 1 indicates a tree containing a bird nest and 0 indicates an available and suitable tree that does not contain a bird nest. The lines represent model predictions from the selected logistic regression model, and surrounding lighter coloured shaded ribbons represent the 95% confidence intervals. Separate panels show predictions for *Crematogaster sjostedti* ( displayed in red), *Crematogaster mimosae* (displayed in blue), and *Crematogaster nigriceps* (displayed in green). Data are from Lujan, E., Nielsen, R., Short, Z., Wicks, S., Nderitu Watetu, W., Malingati Khasoha, L., Palmer, T. M., Goheen, J. R., & Alston, J. M. (2023). Data, code, and metadata for: Symbiotic acacia ants drive nesting behavior by birds in an African savanna \[Data set\]. <https://doi.org/10.5281/zenodo.8373322>
+**Figure 1. Predicted probability of nest occurrence by tree height and acacia ant species.** Points represent the underlying nest occurrence data, where 1 indicates a tree containing a bird nest and 0 indicates an available and suitable tree that does not contain a bird nest. The lines represent model predictions from the selected logistic regression model, and surrounding lighter coloured shaded ribbons represent the 95% confidence intervals. Separate panels show predictions for *Crematogaster sjostedti* ( displayed in red), *Crematogaster mimosae* (displayed in blue), and *Crematogaster nigriceps* (displayed in green). Data are from Lujan, E., Nielsen, R., Short, Z., Wicks, S., Nderitu Watetu, W., Malingati Khasoha, L., Palmer, T. M., Goheen, J. R., & Alston, J. M. (2023). Data, code, and metadata for: Symbiotic acacia ants drive nesting behavior by birds in an African savanna <https://doi.org/10.5281/zenodo.8373322>
 
 ## j. Calculate model predictions
 
@@ -333,6 +333,41 @@ summary(sleep_productivity_mod)$r.squared
 
 ```
 
+## d. Create a visualization
 
+```{r}
 
+#Create a scatterplot to display relationship between sleep and productivity
+ggplot(data = my_data_clean,
+       mapping = aes(x = sleep_minutes,
+                     y = productivity_level)) +
+  
+  #Add one point for each daily observation from data set
+  geom_point(color = "darkgreen",
+             size = 2,
+             alpha = 0.75) +
+  
+  #Add linear regression trend line and 95% confidence interval
+  geom_smooth(method = "lm",
+              se = TRUE,
+              color = "black",
+              fill = "lightgreen") +
+  
+  #Relabel both axes
+  labs(x = "Sleep (minutes)",
+       y = "Productivity level (%)",
+       title = "Productivity versus Sleep") +
+  
+  #Set x-axis tick marks
+  scale_x_continuous(breaks = seq(300,
+                                600,
+                                by = 50)) +
+  #Change theme
+  theme_light() +
+  
+  #Center title
+  theme(plot.title = element_text(hjust = 0.5))
 
+```
+
+## e. Write a caption
