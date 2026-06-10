@@ -277,3 +277,12 @@ pred_600_table |>
 ## k. Interpret your results
 
 When tree height is set to 600 cm, the model predicted that the probability of nest occurrence was highest for trees inhabited by the more aggressive *Crematogaster nigriceps* at 1.000 (95% CI: 1.000, 1.000), followed by the *Crematogaster mimosae* at 0.741 (95% CI: 0.481, 0.898), and was the lowest for the *Crematogaster sjostedti* at 0.205 (95% CI: 0.001, 0.986). As displayed in Figure 1, the relationship between tree height and probability of nest occurrence differed depending on the type of acacia ant species present, with nest occurrence increasing most strongly with height for trees inhabited by the *C. nigriceps* ants. Ultimately, nest occurrence was more likely in that of taller trees and in trees inhabited by the more aggressive ant defenders, such as *C. nigriceps* and *C. mimosae*. Biologically speaking, this pattern may exist as aggressive ant species better defend host trees from predators and disturbances, making these trees better suited for nest selection.
+
+# Problem 3. Affective and exploratory visualizations
+
+# a. Comparing visualizations
+
+The affective visualization was primarily inspired by the scatter plot exploratory visualization examining the relationship between sleep duration and productivity level. The heights of the buildings represented sleep duration, while exposure to sunlight represented productivity. The arrangement of the buildings follows the overall trendline displayed in the scatter plot, allowing the affective visualization to still effectively communicate the relationship between the two variables but in a more visually compelling manner.
+
+
+
