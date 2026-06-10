@@ -5,7 +5,11 @@ date: "June 9, 2026"
 format:
   pdf:
     toc: true
-editor: visual
+    keep-tex: true
+    include-in-header:
+      text: |
+        \usepackage{fvextra}
+        \DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines,commandchars=\\\{\}}
 ---
 
 GitHub repository: <https://github.com/owenwright-oss/ENVS-193DS_spring-2026_final>
@@ -91,7 +95,7 @@ nests_clean <- nests |>
                                               "Crematogaster nigriceps")))
 
 #Show structure of cleaned data
-str(nests_clean)
+glimpse(nests_clean)
 
 #Show 10 random rows from data frame
 slice_sample(nests_clean, n = 10)
@@ -106,7 +110,7 @@ In this data set, biologically, a value of 1 means that a tree contained a bird 
 
 The first predictor variable, tree height, is a continuous variable measured in centimeters. As tree height increases, the probability of nest occurrence may increase as taller trees may provide more suitable nesting structure and protection from predators. This information was found in the first paragraph of the "Methods" section, and further articulated in the first paragraph of the "Results" section, where it is reported that all nests were in trees more than 1.5 meters tall.
 
-The second predictor variable, acacia ant species, is a categorical variable, represented by three main species: *Crematogaster sjostedti*, *Crematogaster mimosae*, and *Crematogaster nigriceps*. Ant species may influence the probability of nest occurrence as some species, such as *C. mimosae* and *C. nigriceps*, aggressively defend their host trees, which may make those trees a more secure nesting site. This information was found in the second paragraph of the "Introduction" section, and further articulated in the first paragraph of the "Discussion" section, where is it explained that birds almost always nested in trees inhabited by aggressive ant defenders.
+The second predictor variable, acacia ant species, is a categorical variable, represented by three main species: *Crematogaster sjostedti*, *Crematogaster mimosae*, and *Crematogaster nigriceps*. Ant species may influence the probability of nest occurrence as some species, such as *C. mimosae* and *C. nigriceps*, aggressively defend their host trees, which may make those trees a more secure nesting site. This information was found in the second paragraph of the "Introduction" section, and further articulated in the first paragraph of the "Discussion" section, where it is explained that birds almost always nested in trees inhabited by aggressive ant defenders.
 
 ## **d. Table of models**
 
@@ -119,7 +123,7 @@ model_table <- tibble(model_number = c("Model 1",
                       predictor_variables = c("Tree height + acacia ant species",
                                               "Tree height + acacia ant species"),
                       interaction_term = c("No interaction",
-                                           "Tree height × acacia ant species"))
+                                           "Height × ant species"))
 
 #Display table of models
 model_table |>
@@ -166,13 +170,18 @@ The best model, as determined by Akaike’s Information Criterion (AIC), was fou
 ## **g. Check the diagnostics**
 
 ```{r}
+#| fig-width: 10
+#| fig-height: 5
+
 #Set seed to keep same diagnostic plot
 set.seed(123)
 
 #Create simulated residuals for model 2
 mod_int_res <- simulateResiduals(fittedModel = mod_int)
 
-#Display DHARMa diagnostic plots
+#Display DHARMa diagnostic plots and display all visual components
+par(mar = c(5, 5, 4, 2),
+    cex = 0.75)
 plot(mod_int_res)
 
 ```
@@ -180,10 +189,11 @@ plot(mod_int_res)
 ## **h. Visualize the model predictions**
 
 ```{r}
-#Create plot showing model predictions
-mod_int_preds <- ggpredict(mod_int,
-                           terms = c("height_cm",
-                                     "ant_species_full"))
+mod_int_preds <- suppressMessages(
+  ggpredict(mod_int,
+            terms = c("height_cm",
+                      "ant_species_full")))
+
 #Convert predictions to data frame
 mod_int_preds <- as.data.frame(mod_int_preds)
 
@@ -347,7 +357,7 @@ ggplot(data = my_data_clean,
              size = 2,
              alpha = 0.75) +
   
-  #Add linear regression trend line and 95% confidence interval
+  #Add linear regression trend line from analysis and 95% confidence interval
   geom_smooth(method = "lm",
               se = TRUE,
               color = "black",
@@ -371,3 +381,11 @@ ggplot(data = my_data_clean,
 ```
 
 ## e. Write a caption
+
+**Figure 2. Relationship between sleep duration and productivity level.** Green points represent daily observations, derived from my personal data set, where sleep duration is measured in minutes slept each night and productivity level is measured as tasks completed divided by tasks planned, expressed as a percentage. The black line displays the predicted relationship from the simple linear regression model, and the surrounding light green shaded ribbon represents the 95% confidence interval. Data are from my personal data collected in ENVS 193DS at UCSB during Spring 2026.
+
+## f. Write about your results
+
+A simple linear regression model was used to analyze the relationship between sleep duration and productivity level. The relationship was found to be statistically significant (simple linear regression, F(1, 49)=16.38, p\<0.001, $\alpha = 0.05$, R²=0.251), with sleep duration explaining around 25.1% of the variation seen in productivity level. As displayed in Figure 2, an increase in productivity level coincided with an increase in sleep duration, with each additional minute of sleep predicting an increase of 0.232 percentage points in productivity level.
+
+## g. **Sharing your affective visualization**
